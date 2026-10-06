@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Panel de cursos de verano · Universidad Continental</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700&family=DM+Sans:wght@400;500;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+:root{--m:#6A00BE;--mo:#4B0087;--n:#120C1C;--n2:#1E1530;--a:#F2A900;--l:#F3ECFB;--lf:#F6F2FA;--t:#15111C;--s:#575163;--b:#E5E2EB;--ok:#145C34;--okb:#E3F2EA;--av:#6B4200;--avb:#FFF3D6;--er:#7A2419;--erb:#FDE9E7;--fondo:#F7F5FA}
+*{box-sizing:border-box}
+body{margin:0;font-family:'DM Sans',system-ui,sans-serif;font-size:15px;line-height:1.5;color:var(--t);background:var(--fondo)}
+h1,h2,h3{font-family:Sora,sans-serif;margin:0}
+a{color:var(--m)}
+button,input,select,textarea{font:inherit}
+:focus-visible{outline:3px solid var(--a);outline-offset:2px;box-shadow:0 0 0 2px var(--n);border-radius:6px}
+.oculto{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.demo{background:var(--l);color:var(--mo);font-size:13.5px;padding:8px 16px;text-align:center}
+.demo b.tag{background:var(--mo);color:#fff;padding:2px 8px;border-radius:999px;font-size:12px;margin-right:6px}
+/* Estructura */
+.app{display:grid;grid-template-columns:264px minmax(0,1fr);min-height:calc(100vh - 38px)}
+.lateral{background:var(--n);color:#fff;display:flex;flex-direction:column;gap:18px;padding:22px 16px;position:sticky;top:0;height:100vh}
+.lateral .logo img{height:36px;filter:brightness(0) invert(1)}
+.lateral .producto{font:700 15px Sora,sans-serif;color:#fff;margin-top:6px}
+.lateral .producto small{display:block;font:500 12.5px 'DM Sans',sans-serif;color:#D9C2F0}
+.navlat{display:flex;flex-direction:column;gap:4px}
+.navlat button{display:flex;align-items:center;gap:12px;min-height:46px;padding:0 14px;border:0;border-radius:12px;background:none;color:#E9E1F3;cursor:pointer;font-weight:500;text-align:left}
+.navlat button:hover{background:rgba(255,255,255,.08)}
+.navlat button[aria-current="page"]{background:var(--m);color:#fff;font-weight:700}
+.navlat svg{width:20px;height:20px;flex:none}
+.fase-lat{background:rgba(255,255,255,.07);border-radius:14px;padding:12px 14px;font-size:13px;color:#D9C2F0}
+.fase-lat b{display:block;color:var(--a);font-size:14px}
+.usuario-lat{margin-top:auto;border-top:1px solid rgba(255,255,255,.12);padding-top:14px;font-size:14px}
+.usuario-lat .rol{display:inline-block;margin-top:4px}
+.usuario-lat button{background:none;border:0;color:#fff;text-decoration:underline;cursor:pointer;padding:8px 0;min-height:44px;font-weight:700}
+.contenido{min-width:0;display:flex;flex-direction:column}
+.barra-sup{position:sticky;top:0;z-index:20;background:rgba(247,245,250,.96);backdrop-filter:blur(6px);border-bottom:1px solid #ECE6F3;padding:14px 28px;display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;justify-content:space-between}
+.barra-sup h1{font-size:22px}
+.barra-sup .sub{font-size:13.5px;color:var(--s)}
+.filtros-glob{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;min-width:0}
+.filtros-glob label.campo{min-width:0}
+.filtros-glob select{width:100%;max-width:300px}
+main{padding:24px 28px 64px;min-width:0}
+/* Componentes */
+.btn{min-height:44px;padding:0 18px;border-radius:999px;border:2px solid var(--m);background:var(--m);color:#fff;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;white-space:nowrap}
+.btn:hover{background:var(--mo);border-color:var(--mo)}
+.btn.sec{background:#fff;color:var(--mo)} .btn.sec:hover{background:var(--l)}
+.btn.chico{min-height:38px;padding:0 13px;font-size:13.5px}
+.btn.wa{background:#1B7A43;border-color:#1B7A43}.btn.wa:hover{background:#145C34;border-color:#145C34}
+.btn-texto{background:none;border:0;color:var(--mo);font-weight:700;cursor:pointer;text-decoration:underline;min-height:40px;padding:0 6px}
+.icono-btn{width:38px;height:38px;border-radius:10px;border:1px solid var(--b);background:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--mo)}
+.icono-btn:hover{background:var(--l);border-color:var(--m)}
+.icono-btn.wa{color:#1B7A43}
+.icono-btn svg{width:18px;height:18px}
+.tarjeta{background:#fff;border:1px solid var(--b);border-radius:18px;padding:20px}
+.tarjeta h2{font-size:17px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.tarjeta h2 small{font:500 13px 'DM Sans',sans-serif;color:var(--s)}
+.grid{display:grid;gap:16px}
+.kpis{grid-template-columns:repeat(auto-fit,minmax(min(100%,170px),1fr))}
+.kpi{position:relative;overflow:hidden}
+.kpi small{display:block;color:var(--s);font-size:13.5px}
+.kpi b{font:400 42px/1 'Bebas Neue',sans-serif;color:var(--m)}
+.kpi .det{font-size:12.5px;color:var(--s)}
+.kpi.acento{background:var(--n);border-color:var(--n)} .kpi.acento small,.kpi.acento .det{color:#D9C2F0} .kpi.acento b{color:var(--a)}
+.dos{grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr))}
+.barras{display:flex;flex-direction:column;gap:8px}
+.barra{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.4fr) 40px;gap:12px;align-items:center;font-size:14px;width:100%;background:none;border:0;padding:4px 6px;border-radius:8px;text-align:left;color:var(--t)}
+button.barra{cursor:pointer} button.barra:hover{background:var(--lf)}
+.barra span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.barra b{text-align:right}
+.pista{height:12px;border-radius:99px;background:var(--lf);position:relative;overflow:visible}
+.pista i{display:block;height:100%;border-radius:99px;background:var(--m)}
+.pista .min{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--n)}
+.pill{display:inline-block;padding:3px 10px;border-radius:999px;font-size:12.5px;font-weight:700;white-space:nowrap}
+.p-ok{background:var(--okb);color:var(--ok)} .p-av{background:var(--avb);color:var(--av)} .p-er{background:var(--erb);color:var(--er)} .p-gr{background:#F1EDF5;color:#3E3850} .p-m{background:var(--l);color:var(--mo)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:38px;padding:0 14px;border-radius:999px;border:1.5px solid #D9C2F0;background:#fff;color:var(--mo);font-weight:700;font-size:13.5px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.chip span{min-width:22px;height:22px;padding:0 6px;border-radius:99px;background:var(--l);font-size:12px;display:inline-flex;align-items:center;justify-content:center}
+.chip[aria-pressed="true"]{background:var(--m);border-color:var(--m);color:#fff}
+.chip[aria-pressed="true"] span{background:rgba(255,255,255,.2);color:#fff}
+.herramientas{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;justify-content:space-between;margin-bottom:14px}
+label.campo{display:flex;flex-direction:column;gap:4px;font-size:12.5px;font-weight:700;color:#3E3850}
+input[type=number],input[type=date],input[type=time],input[type=search],select,textarea{min-height:40px;border:1px solid #BDB4CB;border-radius:10px;padding:6px 10px;background:#fff;color:var(--t);max-width:100%}
+input[type=number]{width:82px}
+input[type=search]{min-width:240px}
+textarea{width:100%;min-height:70px}
+.tabla-scroll{overflow-x:auto;border:1px solid var(--b);border-radius:16px;background:#fff}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead th{background:#FBFAFD;color:#3E3850;text-align:left;padding:11px 12px;font-size:12.5px;letter-spacing:.03em;text-transform:uppercase;border-bottom:1px solid var(--b);position:sticky;top:0}
+td{padding:11px 12px;border-top:1px solid #F0EDF4;vertical-align:top}
+tbody tr:hover{background:#FCFBFE}
+tr.sel{background:#F7F1FD!important}
+.meta{font-size:13px;color:var(--s)}
+.nombre{font-weight:700}
+.acciones{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.masivo{position:sticky;top:76px;z-index:15;display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--n);color:#fff;border-radius:14px;padding:10px 14px;margin-bottom:12px}
+.masivo select{min-height:38px}
+.masivo .btn.sec{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)} .masivo .btn.sec:hover{background:rgba(255,255,255,.1)}
+.paginacion{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-top:14px}
+.paginas{display:flex;gap:4px;flex-wrap:wrap}
+.paginas button{min-width:40px;height:40px;border-radius:10px;border:1px solid var(--b);background:#fff;cursor:pointer;font-weight:700;color:var(--mo)}
+.paginas button[aria-current="page"]{background:var(--m);color:#fff;border-color:var(--m)}
+.paginas button:disabled{opacity:.4;cursor:default}
+.mini{height:6px;border-radius:99px;background:var(--lf);margin-top:6px;position:relative;width:130px}
+.mini i{display:block;height:100%;border-radius:99px}
+/* Ficha y modal */
+.cortina{position:fixed;inset:0;background:rgba(18,12,28,.55);z-index:50}
+.ficha{position:fixed;top:0;right:0;bottom:0;width:min(520px,100%);background:#fff;z-index:51;display:flex;flex-direction:column;box-shadow:-12px 0 40px rgba(18,12,28,.25)}
+.ficha header{background:var(--n);color:#fff;padding:18px 20px;display:flex;justify-content:space-between;gap:12px}
+.ficha header h2{font-size:19px;color:#fff}
+.ficha .cuerpo{padding:18px 20px;overflow-y:auto;display:flex;flex-direction:column;gap:16px}
+.ficha .cerrar{background:none;border:2px solid rgba(255,255,255,.4);color:#fff;border-radius:999px;width:40px;height:40px;cursor:pointer;flex:none}
+.hist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:13.5px}
+.hist li{border-left:3px solid var(--l);padding-left:10px}
+.modal-fondo{position:fixed;inset:0;background:rgba(18,12,28,.6);display:flex;align-items:center;justify-content:center;padding:16px;z-index:60}
+.modal{background:#fff;border-radius:18px;max-width:560px;width:100%;padding:22px;display:flex;flex-direction:column;gap:12px;max-height:92vh;overflow-y:auto}
+.mensaje{background:var(--lf);border-radius:12px;padding:12px;white-space:pre-wrap;font-size:14.5px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--n);color:#fff;padding:12px 18px;border-radius:12px;z-index:70;max-width:90vw}
+.perfil-op{display:block;width:100%;text-align:left;border:1px solid var(--b);border-radius:12px;padding:14px;background:#fff;cursor:pointer;margin-top:8px}
+.perfil-op:hover{border-color:var(--m);background:var(--l)}
+.ingreso{max-width:560px;margin:80px auto;text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center;padding:0 16px}
+.vacio{padding:28px;text-align:center;color:var(--s);background:#fff;border:1px dashed #CFC6DA;border-radius:16px}
+@media (max-width: 1000px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .lateral{position:static;height:auto;flex-direction:row;flex-wrap:wrap;align-items:center;padding:12px 14px;gap:10px}
+  .lateral .producto,.fase-lat{display:none}
+  .navlat{flex-direction:row;overflow-x:auto;order:3;width:100%}
+  .navlat button{flex:none;min-height:42px}
+  .usuario-lat{margin:0 0 0 auto;border:0;padding:0;display:flex;align-items:center;gap:8px}
+  .usuario-lat .rol{display:none}
+  .barra-sup{position:static;padding:14px 16px} main{padding:18px 14px 56px}
+  .masivo{top:8px}
+  input[type=search]{min-width:0;width:100%}
+  .barra-sup>div,.filtros-glob{width:100%}
+  .filtros-glob label.campo{flex:1 1 100%}
+  .filtros-glob select{max-width:none}
+}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="demo" role="note"><b class="tag">DEMO</b><b>Prototipo con datos de demostración.</b> Estudiantes, celulares y solicitudes ficticios; se guardan solo en este navegador. <a href="app.html">Ver el portal del estudiante</a></div>
+<div id="raiz"></div>
+<div id="capa"></div>
+<div id="modal"></div>
+
+<script src="js/config.js"></script>
+<script src="js/datos-prototipo.js"></script>
+<script src="js/datos-panel.js"></script>
+<script src="js/campana.js"></script>
+<script>
+(function () {
+  const CA = UCP.campana, X = UC_PANEL;
+  const $ = (id) => document.getElementById(id);
+  const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const titulo = (s) => String(s || '').toLowerCase().replace(/(^|\s)\S/g, (m) => m.toUpperCase());
+  const fecha = (iso) => { if (!iso) return 'Por definir'; const [y, m, d] = iso.slice(0, 10).split('-'); return `${d}/${m}/${y}`; };
+  const soles = (n) => 'S/ ' + Number(n || 0).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  const DIAS = ['', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+  const USUARIOS = [
+    { id: 'u1', nombre: 'Ana Torres', correo: 'atorres.demo@continental.edu.pe', rol: 'mesa', rolT: 'Mesa de ayuda' },
+    { id: 'u3', nombre: 'Rosa Vega', correo: 'rvega.demo@continental.edu.pe', rol: 'mesa', rolT: 'Mesa de ayuda' },
+    { id: 'u4', nombre: 'Miguel Paz', correo: 'mpaz.demo@continental.edu.pe', rol: 'mesa', rolT: 'Mesa de ayuda' },
+    { id: 'u2', nombre: 'Carlos Medina', correo: 'cmedina.demo@continental.edu.pe', rol: 'coordinacion', rolT: 'Coordinación académica' }
+  ];
+  const AGENTES = USUARIOS.filter((u) => u.rol === 'mesa').map((u) => u.nombre);
+  const FAC = Object.fromEntries(X.facultades.map((f) => [f.id, f.nombre]));
+  const facCorta = (id) => (FAC[id] || '').replace('Facultad de ', '');
+  const POR_PAG = 25;
+  const ICO = {
+    resumen: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>',
+    demanda: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+    estudiantes: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-6 7-6s7 2 7 6M17 11a3 3 0 1 0 0-6M22 21c0-3-2-5-5-5"/></svg>',
+    config: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+    wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 21l2.1-5.4A8.4 8.4 0 1 1 21 11.5z"/></svg>',
+    tel: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2z"/></svg>',
+    mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>',
+    ver: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>'
+  };
+
+  let U = null, vista = 'resumen';
+  let G = JSON.parse(sessionStorage.getItem('uc_panel_filtros') || '{"facultad":"","programa":""}');
+  let FE = { rapido: 'todos', curso: '', estado: '', pref: '', ciclo: '', asignado: '', q: '', orden: 'recientes', pagina: 1 };
+  let FD = { q: '', semaforo: '', estado: '', orden: 'demanda' };
+  let SEL = new Set(), FICHA = null;
+  const esCoord = () => U && U.rol === 'coordinacion';
+  const toast = (t) => { const d = document.createElement('div'); d.className = 'toast'; d.setAttribute('role', 'status'); d.textContent = t; document.body.appendChild(d); setTimeout(() => d.remove(), 3400); };
+  const guardarG = () => sessionStorage.setItem('uc_panel_filtros', JSON.stringify(G));
+
+  // ---------------- Datos filtrados ----------------
+  const base = () => CA.vigentes().filter((s) => (!G.facultad || CA.facultadDe(s) === G.facultad) && (!G.programa || CA.programaDe(s) === G.programa));
+  function demanda(sol) {
+    const c = CA.leer(), d = {};
+    sol.forEach((s) => s.cursos.forEach((x) => { const r = d[x.codigo] || (d[x.codigo] = { codigo: x.codigo, n: 0, prog: {} }); r.n++; const p = CA.programaDe(s); r.prog[p] = (r.prog[p] || 0) + 1; }));
+    return Object.values(d).map((r) => { const cu = CA.curso(r.codigo), min = CA.minimo(c, r.codigo);
+      return Object.assign(r, { nombre: cu.nombre, ciclo: cu.ciclo, creditos: cu.creditos, min, sem: r.n >= min ? 'alcanza' : r.n >= min * 0.7 ? 'cerca' : 'lejos', estado: CA.estadoCurso(c, r.codigo), secciones: CA.seccionesCurso(c, r.codigo), publicado: CA.horarioPublicado(c, r.codigo), porFase: c.fase === 'horarios', marcado: !!(c.cursos[r.codigo] && c.cursos[r.codigo].publicado) });
+    });
+  }
+  const SEM = { alcanza: ['Alcanza', 'p-ok', '#145C34'], cerca: ['Cerca', 'p-av', '#9A6700'], lejos: ['Lejos', 'p-er', '#B3261E'] };
+
+  // ---------------- Estructura ----------------
+  function ingreso() {
+    $('raiz').innerHTML = `<div class="ingreso"><img src="https://adistancia.ucontinental.edu.pe/assets/img/logo.svg" alt="Universidad Continental · Modalidad A Distancia" style="height:44px">
+      <h1 style="font-size:28px">Panel de cursos de verano</h1><p class="meta" style="font-size:15px;margin:0">Acceso solo para el equipo autorizado de Coordinación académica y de la mesa de ayuda.</p>
+      <button class="btn" id="btn-google">Ingresar con Google (@continental.edu.pe)</button></div>`;
+  }
+  function selector() {
+    $('modal').innerHTML = `<div class="modal-fondo" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="modal">
+      <h2 id="mt" style="font-size:20px">Ingreso de demostración</h2><p class="meta" style="margin:0">En la versión real, el sistema reconoce tu rol por tu cuenta institucional. Elige un usuario de ejemplo:</p>
+      ${USUARIOS.map((u) => `<button class="perfil-op" data-usuario="${u.id}"><b>${esc(u.nombre)}</b><br><span class="meta">${esc(u.rolT)}</span></button>`).join('')}
+      <div style="text-align:right"><button class="btn-texto" data-cerrar>Cancelar</button></div></div></div>`;
+    document.querySelector('.perfil-op').focus();
+  }
+  function entrar(id) { U = USUARIOS.find((u) => u.id === id); sessionStorage.setItem('uc_proto_panel', id); $('modal').innerHTML = ''; marco(); ir('resumen'); }
+  function marco() {
+    const c = CA.leer(), F = CA.FASES[c.fase];
+    const items = [['resumen', 'Resumen'], ['demanda', 'Demanda por curso'], ['estudiantes', 'Estudiantes'], ...(esCoord() ? [['config', 'Configuración']] : [])];
+    $('raiz').innerHTML = `<div class="app">
+      <aside class="lateral" aria-label="Menú del panel">
+        <div class="logo"><img src="https://adistancia.ucontinental.edu.pe/assets/img/logo.svg" alt="Universidad Continental · Modalidad A Distancia"><div class="producto">Panel de cursos de verano<small>Campaña Verano 2027 · A Distancia</small></div></div>
+        <nav class="navlat" id="navlat">${items.map(([k, t]) => `<button data-vista="${k}">${ICO[k]}<span>${t}</span></button>`).join('')}</nav>
+        <div class="fase-lat"><span>Fase actual</span><b>${esc(F.t)}</b>Cierre: ${fecha(c.cierre)} · Horarios: ${fecha(c.horarios)}</div>
+        <div class="usuario-lat"><b>${esc(U.nombre)}</b><br><span class="rol pill ${esCoord() ? 'p-m' : 'p-ok'}">${esc(U.rolT)}</span><br><button id="btn-salir">Cerrar sesión</button></div>
+      </aside>
+      <div class="contenido"><div class="barra-sup" id="barra-sup"></div><main id="main" tabindex="-1"></main></div></div>`;
+  }
+  function barraSup(tit, sub, conFiltros) {
+    const progs = X.programas.filter((p) => !G.facultad || p.facultad === G.facultad);
+    const n = base().length;
+    $('barra-sup').innerHTML = `<div><h1>${tit}</h1><div class="sub">${sub}</div></div>
+      ${conFiltros ? `<div class="filtros-glob" role="group" aria-label="Filtros por facultad y programa">
+        <label class="campo">Facultad<select id="g-facultad"><option value="">Todas las facultades</option>${X.facultades.map((f) => `<option value="${f.id}" ${f.id === G.facultad ? 'selected' : ''}>${esc(f.nombre.replace('Facultad de ', ''))}</option>`).join('')}</select></label>
+        <label class="campo">Programa<select id="g-programa"><option value="">Todos los programas</option>${progs.map((p) => `<option value="${esc(p.nombre)}" ${p.nombre === G.programa ? 'selected' : ''}>${esc(p.nombre)}</option>`).join('')}</select></label>
+        <span class="pill p-m" style="margin-bottom:8px">${n} ${n === 1 ? 'solicitud' : 'solicitudes'}</span>
+        ${G.facultad || G.programa ? '<button class="btn-texto" id="g-limpiar" style="margin-bottom:2px">Quitar filtros</button>' : ''}</div>` : ''}`;
+  }
+  function ir(v) {
+    vista = v; SEL = new Set();
+    document.querySelectorAll('#navlat button').forEach((b) => { if (b.dataset.vista === v) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current'); });
+    ({ resumen: vResumen, demanda: vDemanda, estudiantes: vEstudiantes, config: vConfig })[v]();
+  }
+
+  // ---------------- Resumen ----------------
+  function vResumen() {
+    barraSup('Resumen de la campaña', 'Demanda de cursos de verano 2027 y avance del seguimiento', true);
+    const sol = base(), dem = demanda(sol), cuenta = (e) => sol.filter((s) => s.seguimiento.estado === e).length;
+    const cred = sol.reduce((a, s) => a + s.creditos, 0), sinAsig = sol.filter((s) => !s.seguimiento.asignado).length;
+    const porFac = {}, porProg = {}; sol.forEach((s) => { const f = CA.facultadDe(s), p = CA.programaDe(s); porFac[f] = (porFac[f] || 0) + 1; porProg[p] = (porProg[p] || 0) + 1; });
+    const maxF = Math.max(1, ...Object.values(porFac)), progs = Object.entries(porProg).sort((a, b) => b[1] - a[1]).slice(0, 8), maxP = Math.max(1, ...progs.map((x) => x[1]));
+    const top = dem.slice().sort((a, b) => b.n - a.n).slice(0, 8), tope = Math.max(1, ...top.map((x) => Math.max(x.n, x.min * 1.15)));
+    const porDia = {}; sol.forEach((s) => { const k = s.fecha.slice(0, 10); porDia[k] = (porDia[k] || 0) + 1; });
+    const dias = Object.keys(porDia).sort(), maxD = Math.max(1, ...Object.values(porDia));
+    const contactados = sol.filter((s) => s.seguimiento.estado !== 'pendiente').length;
+    const embudo = [['Solicitaron', sol.length], ['Contactados', contactados], ['Orientados', cuenta('orientado') + cuenta('matriculado')], ['Matriculados (intranet)', cuenta('matriculado')]];
+    const pct = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+    $('main').innerHTML = `<div class="grid kpis">
+        <div class="tarjeta kpi acento"><small>Estudiantes con solicitud</small><b>${sol.length}</b><div class="det">${cred} créditos solicitados</div></div>
+        <div class="tarjeta kpi"><small>Cursos con demanda</small><b>${dem.length}</b><div class="det">${dem.filter((d) => d.sem === 'alcanza').length} alcanzan el mínimo</div></div>
+        <div class="tarjeta kpi"><small>Cursos cerca del mínimo</small><b>${dem.filter((d) => d.sem === 'cerca').length}</b><div class="det">entre 70% y 99% del mínimo</div></div>
+        <div class="tarjeta kpi"><small>Pendientes de contacto</small><b>${cuenta('pendiente')}</b><div class="det">${pct(cuenta('pendiente'), sol.length)}% del total</div></div>
+        <div class="tarjeta kpi"><small>Sin asignar</small><b>${sinAsig}</b><div class="det">a la mesa de ayuda</div></div>
+        <div class="tarjeta kpi"><small>Matriculados</small><b>${cuenta('matriculado')}</b><div class="det">dato de la intranet</div></div>
+      </div>
+      <div class="grid dos" style="margin-top:16px">
+        <section class="tarjeta"><h2>Solicitudes por facultad <small>Toca para filtrar</small></h2><div class="barras">
+          ${X.facultades.filter((f) => porFac[f.id]).sort((a, b) => porFac[b.id] - porFac[a.id]).map((f) => `<button class="barra" data-filtrar-fac="${f.id}"><span>${esc(f.nombre.replace('Facultad de ', ''))}</span><div class="pista"><i style="width:${(porFac[f.id] / maxF) * 100}%"></i></div><b>${porFac[f.id]}</b></button>`).join('') || '<p class="meta">Sin datos</p>'}</div></section>
+        <section class="tarjeta"><h2>Programas con más solicitudes <small>Toca para filtrar</small></h2><div class="barras">
+          ${progs.map(([p, n]) => `<button class="barra" data-filtrar-prog="${esc(p)}"><span title="${esc(p)}">${esc(p)}</span><div class="pista"><i style="width:${(n / maxP) * 100}%;background:#4B0087"></i></div><b>${n}</b></button>`).join('') || '<p class="meta">Sin datos</p>'}</div></section>
+        <section class="tarjeta"><h2>Cursos más solicitados <small>La línea marca el mínimo</small></h2><div class="barras">
+          ${top.map((f) => `<div class="barra"><span title="${esc(f.nombre)}">${esc(f.nombre)}</span><div class="pista"><i style="width:${(f.n / tope) * 100}%;background:${SEM[f.sem][2]}"></i><span class="min" style="left:${(f.min / tope) * 100}%"></span></div><b>${f.n}</b></div>`).join('') || '<p class="meta">Sin datos</p>'}</div></section>
+        <section class="tarjeta"><h2>Seguimiento</h2><div class="barras">
+          ${embudo.map(([t, n]) => `<div class="barra"><span>${t}</span><div class="pista"><i style="width:${pct(n, sol.length)}%"></i></div><b>${n}</b></div>`).join('')}</div>
+          <h2 style="margin-top:18px">Solicitudes por día</h2>
+          <div style="display:flex;align-items:flex-end;gap:3px;height:90px" role="img" aria-label="Solicitudes por día">${dias.map((k) => `<div title="${fecha(k)}: ${porDia[k]}" style="flex:1;background:#6A00BE;border-radius:4px 4px 0 0;height:${(porDia[k] / maxD) * 100}%"></div>`).join('')}</div>
+          <p class="meta" style="margin:6px 0 0">${dias.length ? `Del ${fecha(dias[0])} al ${fecha(dias.at(-1))}` : 'Sin solicitudes'}</p></section>
+      </div>`;
+  }
+
+  // ---------------- Demanda por curso ----------------
+  function vDemanda() {
+    barraSup('Demanda por curso', esCoord() ? 'Define mínimos, abre cursos, carga secciones y publica horarios' : 'Demanda de cada curso frente al mínimo para abrirlo', true);
+    const coord = esCoord();
+    let filas = demanda(base());
+    const cuentaSem = { alcanza: 0, cerca: 0, lejos: 0 }; filas.forEach((f) => cuentaSem[f.sem]++);
+    const cuentaEst = { por_decidir: 0, abierto: 0, no_abierto: 0 }; filas.forEach((f) => cuentaEst[f.estado]++);
+    if (FD.q) { const q = FD.q.toLowerCase(); filas = filas.filter((f) => (f.nombre + ' ' + f.codigo).toLowerCase().includes(q)); }
+    if (FD.semaforo) filas = filas.filter((f) => f.sem === FD.semaforo);
+    if (FD.estado) filas = filas.filter((f) => f.estado === FD.estado);
+    const ord = { demanda: (a, b) => b.n - a.n, brecha: (a, b) => (a.min - a.n) - (b.min - b.n), ciclo: (a, b) => a.ciclo - b.ciclo || b.n - a.n, nombre: (a, b) => a.nombre.localeCompare(b.nombre) }[FD.orden];
+    filas.sort(ord);
+    const chip = (grupo, val, t, n) => `<button class="chip" data-fd="${grupo}" data-val="${val}" aria-pressed="${FD[grupo] === val}">${t}${n != null ? `<span>${n}</span>` : ''}</button>`;
+    const fila = (f) => {
+      const progs = Object.entries(f.prog).sort((a, b) => b[1] - a[1]), falta = Math.max(0, f.min - f.n);
+      return `<tr>
+      <td style="min-width:220px"><span class="nombre">${esc(f.nombre)}</span><div class="meta">${esc(f.codigo)} · Ciclo ${f.ciclo} · ${f.creditos} cr.</div></td>
+      <td style="min-width:150px"><b style="font:400 28px/1 'Bebas Neue',sans-serif;color:${SEM[f.sem][2]}">${f.n}</b> <span class="meta">de ${f.min}</span>
+        <div class="mini"><i style="width:${Math.min(100, (f.n / f.min) * 100)}%;background:${SEM[f.sem][2]}"></i></div><div class="meta">${falta ? `Faltan ${falta}` : 'Mínimo alcanzado'}</div></td>
+      <td style="min-width:200px">${progs.slice(0, 2).map(([p, n]) => `<div class="meta" title="${esc(p)}">${esc(p.length > 34 ? p.slice(0, 32) + '…' : p)} · <b>${n}</b></div>`).join('')}${progs.length > 2 ? `<div class="meta">+${progs.length - 2} programas más</div>` : ''}</td>
+      <td>${coord ? `<input type="number" min="1" max="500" value="${f.min}" data-minimo="${f.codigo}" aria-label="Mínimo de estudiantes para ${esc(f.nombre)}">` : f.min}</td>
+      <td><span class="pill ${SEM[f.sem][1]}">${SEM[f.sem][0]}</span></td>
+      <td>${coord ? `<select data-estado="${f.codigo}" aria-label="Estado de ${esc(f.nombre)}">${Object.entries(CA.ESTADOS_CURSO).map(([k, t]) => `<option value="${k}" ${k === f.estado ? 'selected' : ''}>${t}</option>`).join('')}</select>` : `<span class="pill ${f.estado === 'abierto' ? 'p-ok' : f.estado === 'no_abierto' ? 'p-er' : 'p-gr'}">${CA.ESTADOS_CURSO[f.estado]}</span>`}</td>
+      <td style="min-width:210px">${f.secciones.map((s, i) => `<div class="meta">${esc(s.seccion)} · ${DIAS[s.dia]} ${esc(s.hora_inicio)}–${esc(s.hora_fin)} ${coord ? `<button class="btn-texto" data-quitar-sec="${f.codigo}" data-i="${i}" aria-label="Quitar la sección ${esc(s.seccion)} de ${esc(f.nombre)}">Quitar</button>` : ''}</div>`).join('') || '<span class="meta">—</span>'}
+        ${f.estado === 'abierto' && f.secciones.length ? (coord && !f.porFase ? `<label style="display:flex;gap:8px;align-items:center;min-height:38px;font-size:13.5px;font-weight:700"><input type="checkbox" data-publicar="${f.codigo}" ${f.marcado ? 'checked' : ''} style="width:20px;height:20px;accent-color:#6A00BE"> Publicar horario ahora</label>` : `<span class="pill ${f.publicado ? 'p-ok' : 'p-gr'}">${f.publicado ? (f.porFase ? 'Publicado (fase de horarios)' : 'Horario publicado') : 'Horario sin publicar'}</span>`) : ''}
+        ${coord && f.estado === 'abierto' ? `<details><summary class="btn-texto" style="display:inline-flex">Agregar sección</summary><div class="acciones" style="margin-top:6px;align-items:flex-end">
+          <label class="campo">Día<select data-nueva-dia="${f.codigo}">${[1, 2, 3, 4, 5, 6].map((d) => `<option value="${d}">${DIAS[d]}</option>`).join('')}</select></label>
+          <label class="campo">Inicio<input type="time" value="19:00" data-nueva-ini="${f.codigo}"></label><label class="campo">Fin<input type="time" value="22:00" data-nueva-fin="${f.codigo}"></label>
+          <button class="btn chico" data-agregar-sec="${f.codigo}">Agregar</button></div></details>` : ''}</td>
+      <td><button class="btn sec chico" data-ver-estudiantes="${f.codigo}">Ver ${f.n}</button></td></tr>`;
+    };
+    $('main').innerHTML = `<div class="herramientas">
+        <label class="campo" style="flex:1 1 260px">Buscar curso<input type="search" id="d-q" value="${esc(FD.q)}" placeholder="Nombre o código"></label>
+        <label class="campo">Ordenar por<select id="d-orden">${[['demanda', 'Más solicitados'], ['brecha', 'Más cerca del mínimo'], ['ciclo', 'Ciclo'], ['nombre', 'Nombre']].map(([k, t]) => `<option value="${k}" ${FD.orden === k ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
+      </div>
+      <div class="herramientas" style="justify-content:flex-start">
+        <div class="chips" role="group" aria-label="Semáforo">${chip('semaforo', '', 'Todos', null)}${chip('semaforo', 'alcanza', 'Alcanza', cuentaSem.alcanza)}${chip('semaforo', 'cerca', 'Cerca', cuentaSem.cerca)}${chip('semaforo', 'lejos', 'Lejos', cuentaSem.lejos)}</div>
+        <div class="chips" role="group" aria-label="Estado del curso">${chip('estado', '', 'Todos los estados', null)}${chip('estado', 'por_decidir', 'Por decidir', cuentaEst.por_decidir)}${chip('estado', 'abierto', 'Abiertos', cuentaEst.abierto)}${chip('estado', 'no_abierto', 'No abiertos', cuentaEst.no_abierto)}</div>
+      </div>
+      <p class="meta" role="status">${filas.length} ${filas.length === 1 ? 'curso' : 'cursos'}${coord ? ' · Al marcar un curso como abierto o no abierto se registra el correo automático a sus solicitantes.' : ''}</p>
+      ${filas.length ? `<div class="tabla-scroll"><table><thead><tr><th scope="col">Curso</th><th scope="col">Solicitudes</th><th scope="col">Programas</th><th scope="col">Mínimo</th><th scope="col">Semáforo</th><th scope="col">Estado</th><th scope="col">Horario</th><th scope="col"><span class="sr">Acciones</span></th></tr></thead><tbody>${filas.map(fila).join('')}</tbody></table></div>` : '<p class="vacio">No hay cursos con estos filtros.</p>'}`;
+  }
+
+  // ---------------- Estudiantes ----------------
+  function listaEstudiantes() {
+    const c = CA.leer();
+    const rapidos = {
+      todos: () => true,
+      pendientes: (s) => s.seguimiento.estado === 'pendiente',
+      whatsapp: (s) => s.contacto.preferencia === 'whatsapp',
+      abierto: (s) => s.cursos.some((x) => CA.estadoCurso(c, x.codigo) === 'abierto'),
+      mios: (s) => s.seguimiento.asignado === U.nombre,
+      sinasignar: (s) => !s.seguimiento.asignado
+    };
+    const b = base();
+    const conteo = Object.fromEntries(Object.keys(rapidos).map((k) => [k, b.filter(rapidos[k]).length]));
+    let sol = b.filter(rapidos[FE.rapido]);
+    if (FE.curso) sol = sol.filter((s) => s.cursos.some((x) => x.codigo === FE.curso));
+    if (FE.estado) sol = sol.filter((s) => s.seguimiento.estado === FE.estado);
+    if (FE.pref) sol = sol.filter((s) => s.contacto.preferencia === FE.pref);
+    if (FE.ciclo) sol = sol.filter((s) => String(s.estudiante.ciclo) === FE.ciclo);
+    if (FE.asignado) sol = sol.filter((s) => (FE.asignado === '—' ? !s.seguimiento.asignado : s.seguimiento.asignado === FE.asignado));
+    if (FE.q) { const q = FE.q.toLowerCase(); sol = sol.filter((s) => (s.estudiante.nombres + ' ' + s.estudiante.apellidos + ' ' + s.estudiante.correo + ' ' + s.id + ' ' + (s.contacto.celular || '').replace(/\s/g, '')).toLowerCase().includes(q.replace(/\s/g, q.includes('@') ? ' ' : ''))); }
+    const ord = { recientes: (a, b2) => b2.fecha.localeCompare(a.fecha), antiguos: (a, b2) => a.fecha.localeCompare(b2.fecha), nombre: (a, b2) => (a.estudiante.apellidos).localeCompare(b2.estudiante.apellidos), ciclo: (a, b2) => b2.estudiante.ciclo - a.estudiante.ciclo }[FE.orden];
+    return { sol: sol.sort(ord), conteo, b };
+  }
+  function vEstudiantes() {
+    barraSup('Estudiantes que solicitaron cursos', 'Orienta por el medio que prefiere cada estudiante y registra el seguimiento', true);
+    const c = CA.leer(), { sol, conteo, b } = listaEstudiantes();
+    const paginas = Math.max(1, Math.ceil(sol.length / POR_PAG)); FE.pagina = Math.min(FE.pagina, paginas);
+    const desde = (FE.pagina - 1) * POR_PAG, pag = sol.slice(desde, desde + POR_PAG);
+    const cursosB = demanda(b).sort((a, b2) => a.nombre.localeCompare(b2.nombre));
+    const opc = (obj, sel) => Object.entries(obj).map(([k, t]) => `<option value="${k}" ${k === sel ? 'selected' : ''}>${t}</option>`).join('');
+    const rap = [['todos', 'Todos'], ['pendientes', 'Pendientes de contacto'], ['whatsapp', 'Prefieren WhatsApp'], ['abierto', 'Con curso abierto'], ['mios', 'Asignados a mí'], ['sinasignar', 'Sin asignar']];
+    const todosPag = pag.length && pag.every((s) => SEL.has(s.id));
+    const fila = (s) => {
+      const e = s.estudiante, seg = s.seguimiento, n = esc(titulo(e.nombres.split(' ')[0]));
+      const cursos = s.cursos.map((x) => { const ec = CA.estadoCurso(c, x.codigo); return `<span class="pill ${ec === 'abierto' ? 'p-ok' : ec === 'no_abierto' ? 'p-er' : 'p-m'}" style="margin:0 4px 4px 0;white-space:normal">${esc(x.nombre)}${x.seccion ? ' · ' + esc(x.seccion) : ''}</span>`; }).join('');
+      return `<tr class="${SEL.has(s.id) ? 'sel' : ''}">
+        <td><input type="checkbox" data-sel="${s.id}" ${SEL.has(s.id) ? 'checked' : ''} aria-label="Seleccionar a ${esc(titulo(e.nombres + ' ' + e.apellidos))}" style="width:20px;height:20px;accent-color:#6A00BE"></td>
+        <td style="min-width:200px"><span class="nombre">${esc(titulo(e.nombres + ' ' + e.apellidos))}</span><div class="meta">${esc(e.correo)}</div><div class="meta">${esc(s.id)} · ${fecha(s.fecha)}</div></td>
+        <td style="min-width:170px"><div>${esc(CA.programaDe(s))}</div><div class="meta">${esc(facCorta(CA.facultadDe(s)))} · ${e.ciclo}.° ciclo</div></td>
+        <td style="min-width:220px">${cursos}<div class="meta">${s.creditos} créditos</div></td>
+        <td style="min-width:130px"><b>${esc(CA.PREFERENCIAS[s.contacto.preferencia])}</b><div class="meta">${esc(s.contacto.celular || 'sin celular')}</div></td>
+        <td><select data-seguimiento="${s.id}" aria-label="Seguimiento de ${n}">${opc(CA.SEGUIMIENTO, seg.estado)}</select></td>
+        <td style="min-width:110px">${seg.asignado ? esc(seg.asignado) : '<span class="meta">Sin asignar</span>'}</td>
+        <td><div class="acciones" style="flex-wrap:nowrap">
+          <button class="icono-btn wa" data-contactar="${s.id}" data-canal="whatsapp" aria-label="WhatsApp a ${n}" title="WhatsApp">${ICO.wa}</button>
+          <button class="icono-btn" data-contactar="${s.id}" data-canal="llamada" aria-label="Llamar a ${n}" title="Llamar">${ICO.tel}</button>
+          <button class="icono-btn" data-contactar="${s.id}" data-canal="correo" aria-label="Correo a ${n}" title="Correo">${ICO.mail}</button>
+          <button class="icono-btn" data-ficha="${s.id}" aria-label="Ver ficha de ${n}" title="Ver ficha">${ICO.ver}</button></div></td></tr>`;
+    };
+    const pags = [];
+    for (let i = 1; i <= paginas; i++) if (i === 1 || i === paginas || Math.abs(i - FE.pagina) <= 2) pags.push(i); else if (pags.at(-1) !== '…') pags.push('…');
+    $('main').innerHTML = `
+      <div class="chips" role="group" aria-label="Filtros rápidos" style="margin-bottom:14px">${rap.map(([k, t]) => `<button class="chip" data-rapido="${k}" aria-pressed="${FE.rapido === k}">${t}<span>${conteo[k]}</span></button>`).join('')}</div>
+      <div class="herramientas"><div class="acciones" style="align-items:flex-end;gap:10px">
+        <label class="campo" style="flex:1 1 260px">Buscar<input type="search" id="e-q" value="${esc(FE.q)}" placeholder="Nombre, correo, celular o n.° de solicitud"></label>
+        <label class="campo">Curso<select id="e-curso" style="max-width:240px"><option value="">Todos</option>${cursosB.map((f) => `<option value="${f.codigo}" ${f.codigo === FE.curso ? 'selected' : ''}>${esc(f.nombre)} (${f.n})</option>`).join('')}</select></label>
+        <label class="campo">Seguimiento<select id="e-estado"><option value="">Todos</option>${opc(CA.SEGUIMIENTO, FE.estado)}</select></label>
+        <label class="campo">Prefiere<select id="e-pref"><option value="">Todos</option>${opc(CA.PREFERENCIAS, FE.pref)}</select></label>
+        <label class="campo">Ciclo<select id="e-ciclo"><option value="">Todos</option>${[2, 3, 4, 5, 6, 7, 8, 9, 10].map((k) => `<option ${String(k) === FE.ciclo ? 'selected' : ''}>${k}</option>`).join('')}</select></label>
+        <label class="campo">Asignado a<select id="e-asignado"><option value="">Todos</option><option value="—" ${FE.asignado === '—' ? 'selected' : ''}>Sin asignar</option>${AGENTES.map((a) => `<option ${a === FE.asignado ? 'selected' : ''}>${esc(a)}</option>`).join('')}</select></label>
+        <label class="campo">Ordenar<select id="e-orden">${[['recientes', 'Más recientes'], ['antiguos', 'Más antiguos'], ['nombre', 'Apellido'], ['ciclo', 'Ciclo']].map(([k, t]) => `<option value="${k}" ${FE.orden === k ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
+      </div><button class="btn sec" id="exportar">Exportar ${sol.length} a Excel</button></div>
+      ${SEL.size ? `<div class="masivo" role="region" aria-label="Acciones con los seleccionados"><b>${SEL.size} ${SEL.size === 1 ? 'seleccionado' : 'seleccionados'}</b>
+        ${U.rol === 'mesa' ? '<button class="btn chico" data-masivo="asignarme">Asignármelos</button>' : ''}
+        <label class="acciones" style="gap:6px"><span class="sr">Asignar a</span><select id="m-agente"><option value="">Asignar a…</option>${AGENTES.map((a) => `<option>${esc(a)}</option>`).join('')}</select><button class="btn sec chico" data-masivo="asignar">Asignar</button></label>
+        <button class="btn sec chico" data-masivo="contactado">Marcar como contactados</button>
+        <button class="btn sec chico" data-masivo="exportar">Exportar selección</button>
+        <button class="btn-texto" data-masivo="limpiar" style="color:#fff">Quitar selección</button></div>` : ''}
+      <p class="meta" role="status">${sol.length} ${sol.length === 1 ? 'estudiante' : 'estudiantes'}${sol.length ? ` · mostrando ${desde + 1}–${Math.min(desde + POR_PAG, sol.length)}` : ''}</p>
+      ${sol.length ? `<div class="tabla-scroll"><table><thead><tr><th scope="col"><input type="checkbox" id="sel-pagina" ${todosPag ? 'checked' : ''} aria-label="Seleccionar los de esta página" style="width:20px;height:20px;accent-color:#6A00BE"></th><th scope="col">Estudiante</th><th scope="col">Programa</th><th scope="col">Cursos solicitados</th><th scope="col">Contacto</th><th scope="col">Seguimiento</th><th scope="col">Asignado</th><th scope="col">Acciones</th></tr></thead><tbody>${pag.map(fila).join('')}</tbody></table></div>
+      <div class="paginacion"><span class="meta">Página ${FE.pagina} de ${paginas}</span><nav class="paginas" aria-label="Páginas">
+        <button data-pag="${FE.pagina - 1}" ${FE.pagina === 1 ? 'disabled' : ''} aria-label="Página anterior">‹</button>
+        ${pags.map((p) => p === '…' ? '<span class="meta" style="padding:0 6px;align-self:center">…</span>' : `<button data-pag="${p}" ${p === FE.pagina ? 'aria-current="page"' : ''}>${p}</button>`).join('')}
+        <button data-pag="${FE.pagina + 1}" ${FE.pagina === paginas ? 'disabled' : ''} aria-label="Página siguiente">›</button></nav></div>` : '<p class="vacio">No hay estudiantes con estos filtros.</p>'}`;
+  }
+
+  // Ficha lateral del estudiante
+  function abrirFicha(id) {
+    FICHA = id; const s = CA.vigentes().find((x) => x.id === id), c = CA.leer(), e = s.estudiante, seg = s.seguimiento;
+    const k = CA.cronograma(s.creditos, c.costos);
+    $('capa').innerHTML = `<div class="cortina" data-cerrar-ficha></div><aside class="ficha" role="dialog" aria-modal="true" aria-labelledby="ft">
+      <header><div><h2 id="ft">${esc(titulo(e.nombres + ' ' + e.apellidos))}</h2><div style="color:#D9C2F0;font-size:13.5px">${esc(CA.programaDe(s))} · ${e.ciclo}.° ciclo · ${esc(s.id)}</div></div><button class="cerrar" data-cerrar-ficha aria-label="Cerrar ficha">✕</button></header>
+      <div class="cuerpo">
+        <div class="acciones"><button class="btn wa chico" data-contactar="${s.id}" data-canal="whatsapp">${ICO.wa} WhatsApp</button><button class="btn sec chico" data-contactar="${s.id}" data-canal="llamada">${ICO.tel} Llamar</button><button class="btn sec chico" data-contactar="${s.id}" data-canal="correo">${ICO.mail} Correo</button></div>
+        <section><h3 style="font-size:15px;margin-bottom:6px">Contacto</h3><div class="meta">${esc(e.correo)}<br>${esc(s.contacto.celular || 'Sin celular')} · Prefiere <b>${esc(CA.PREFERENCIAS[s.contacto.preferencia])}</b></div></section>
+        <section><h3 style="font-size:15px;margin-bottom:6px">Cursos solicitados · ${s.creditos} créditos</h3>${s.cursos.map((x) => { const ec = CA.estadoCurso(c, x.codigo); return `<div style="display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid #F0EDF4"><span>${esc(x.nombre)}${x.seccion ? ` <span class="meta">· ${esc(x.seccion)}</span>` : ''}</span><span class="pill ${ec === 'abierto' ? 'p-ok' : ec === 'no_abierto' ? 'p-er' : 'p-gr'}">${CA.ESTADOS_CURSO[ec]}</span></div>`; }).join('')}
+          <div class="meta" style="margin-top:6px">Costo estimado: ${soles(k.total)} (matrícula y ${c.costos.cuotas} ${c.costos.cuotas === 1 ? 'cuota' : 'cuotas'} de ejemplo)</div></section>
+        <div class="acciones" style="align-items:flex-end"><label class="campo">Seguimiento<select data-seguimiento="${s.id}">${Object.entries(CA.SEGUIMIENTO).map(([k2, t]) => `<option value="${k2}" ${k2 === seg.estado ? 'selected' : ''}>${t}</option>`).join('')}</select></label>
+          <label class="campo">Asignado a<select data-asignar="${s.id}"><option value="">Sin asignar</option>${AGENTES.map((a) => `<option ${a === seg.asignado ? 'selected' : ''}>${esc(a)}</option>`).join('')}</select></label></div>
+        <label class="campo">Notas de orientación<textarea data-notas="${s.id}" placeholder="Ej.: prefiere que lo llamen después de las 6 p. m.">${esc(seg.notas || '')}</textarea></label>
+        <section><h3 style="font-size:15px;margin-bottom:8px">Historial</h3><ul class="hist">${seg.historial.slice().reverse().map((h) => `<li><b>${esc(h.accion)}</b><br><span class="meta">${fecha(h.fecha)} · ${esc(h.usuario)}</span></li>`).join('')}</ul></section>
+      </div></aside>`;
+    document.querySelector('.ficha .cerrar').focus();
+  }
+  const cerrarFicha = () => { FICHA = null; $('capa').innerHTML = ''; };
+
+  // Mensajes y contacto
+  function mensajes(s) {
+    const c = CA.leer(), nombre = titulo(s.estudiante.nombres.split(' ')[0]), lista = s.cursos.map((x) => x.nombre).join(', ');
+    const conHorario = s.cursos.filter((x) => CA.horarioPublicado(c, x.codigo)).map((x) => x.nombre);
+    const noAb = s.cursos.filter((x) => CA.estadoCurso(c, x.codigo) === 'no_abierto').map((x) => x.nombre);
+    let cuerpo;
+    if (conHorario.length) cuerpo = `¡Buenas noticias! Se abrió ${conHorario.join(', ')} para el verano 2027 y ya tiene horario. Ingresa al portal de cursos de verano para elegir tu sección y luego matricúlate en la intranet del ${fecha(c.matInicio)} al ${fecha(c.matFin)}.${noAb.length ? ` ${noAb.join(', ')} no alcanzó el mínimo de estudiantes; podemos orientarte sobre alternativas.` : ''}`;
+    else if (noAb.length && noAb.length === s.cursos.length) cuerpo = `Te escribimos por tu solicitud de ${noAb.join(', ')}. Lamentablemente no alcanzó el mínimo de estudiantes para abrirse en el verano 2027. Podemos orientarte sobre otras opciones para avanzar en tu carrera.`;
+    else cuerpo = `Recibimos tu solicitud de apertura de ${lista} para el verano 2027. Te escribimos para orientarte: los horarios se publicarán el ${fecha(c.horarios)} y la matrícula se realiza en la intranet. ¿Tienes alguna consulta?`;
+    return { texto: `Hola, ${nombre}. Te saluda ${U.nombre}, de la mesa de ayuda de la Universidad Continental (Modalidad A Distancia). ${cuerpo}`, asunto: `Tu solicitud de cursos de verano 2027 · ${s.id}` };
+  }
+  function contactar(id, canal) {
+    const s = CA.vigentes().find((x) => x.id === id), m = mensajes(s), cel = s.contacto.celular || '', num = cel.replace(/\D/g, ''), proto = UCP.config.modo === 'prototipo';
+    const enlace = canal === 'whatsapp' ? (proto ? `https://wa.me/?text=${encodeURIComponent(m.texto)}` : `https://wa.me/${num}?text=${encodeURIComponent(m.texto)}`) : canal === 'llamada' ? `tel:+${num}` : `mailto:${s.estudiante.correo}?subject=${encodeURIComponent(m.asunto)}&body=${encodeURIComponent(m.texto)}`;
+    const T = { whatsapp: 'WhatsApp', llamada: 'Llamada', correo: 'Correo' }[canal];
+    $('modal').innerHTML = `<div class="modal-fondo" role="dialog" aria-modal="true" aria-labelledby="mc"><div class="modal">
+      <h2 id="mc" style="font-size:20px">${T} a ${esc(titulo(s.estudiante.nombres + ' ' + s.estudiante.apellidos))}</h2>
+      <p class="meta" style="margin:0">${canal === 'correo' ? esc(s.estudiante.correo) : esc(cel || 'Sin celular registrado')} · Prefiere: ${esc(CA.PREFERENCIAS[s.contacto.preferencia])}</p>
+      ${canal !== 'llamada' ? `<div class="mensaje">${esc(m.texto)}</div>` : '<p style="margin:0">Guion sugerido: confirma su solicitud, explica que los horarios se publican al cierre, comenta el costo estimado y recuerda que la matrícula se hace en la intranet.</p>'}
+      ${proto ? `<p class="pill p-av" style="white-space:normal;margin:0">Prototipo: el celular es ficticio, así que ${canal === 'whatsapp' ? 'WhatsApp se abrirá sin destinatario para que veas el mensaje. En el piloto se abrirá directamente el chat del estudiante.' : canal === 'llamada' ? 'no se inicia la llamada. En el piloto, el botón llamará al estudiante.' : 'el correo es de ejemplo.'}</p>` : ''}
+      <label style="display:flex;gap:10px;align-items:center;min-height:44px"><input type="checkbox" id="marcar" checked style="width:20px;height:20px;accent-color:#6A00BE"> Marcar como contactado y registrar en el historial</label>
+      <div class="acciones">${canal === 'llamada' && proto ? '' : `<a class="btn ${canal === 'whatsapp' ? 'wa' : ''}" href="${esc(enlace)}" target="_blank" rel="noopener" data-registrar="${s.id}" data-canal="${canal}">${canal === 'whatsapp' ? 'Abrir WhatsApp' : canal === 'llamada' ? 'Llamar' : 'Abrir correo'}</a>`}
+        ${canal !== 'llamada' ? '<button class="btn sec" data-copiar>Copiar mensaje</button>' : ''}
+        <button class="btn sec" data-registrar="${s.id}" data-canal="${canal}" data-solo-registro>Solo registrar</button><button class="btn-texto" data-cerrar>Cerrar</button></div></div></div>`;
+    $('modal').dataset.texto = m.texto;
+  }
+  function registrar(id, canal) {
+    if ($('marcar') && $('marcar').checked) { const s = CA.vigentes().find((x) => x.id === id); CA.actualizarSeguimiento(id, s.seguimiento.estado === 'pendiente' ? { estado: 'contactado' } : {}, `${U.nombre} (${U.rolT})`, `Contacto por ${CA.PREFERENCIAS[canal]}`); }
+    $('modal').innerHTML = ''; refrescar(); toast('Contacto registrado en el historial.');
+  }
+  function exportar(ids) {
+    const c = CA.leer(), set = ids ? new Set(ids) : null;
+    const sol = set ? CA.vigentes().filter((s) => set.has(s.id)) : listaEstudiantes().sol;
+    const filas = [['Solicitud', 'Fecha', 'Facultad', 'Programa', 'Ciclo', 'Nombres', 'Apellidos', 'Correo', 'Celular', 'Prefiere', 'Curso', 'Código', 'Créditos', 'Sección', 'Estado del curso', 'Seguimiento', 'Asignado', 'Notas']];
+    sol.forEach((s) => s.cursos.forEach((x) => filas.push([s.id, fecha(s.fecha), FAC[CA.facultadDe(s)] || '', CA.programaDe(s), s.estudiante.ciclo, s.estudiante.nombres, s.estudiante.apellidos, s.estudiante.correo, s.contacto.celular, CA.PREFERENCIAS[s.contacto.preferencia], x.nombre, x.codigo, x.creditos, x.seccion || '', CA.ESTADOS_CURSO[CA.estadoCurso(c, x.codigo)], CA.SEGUIMIENTO[s.seguimiento.estado], s.seguimiento.asignado || '', s.seguimiento.notas || ''])));
+    const csv = '\ufeff' + filas.map((f) => f.map((v) => `"${String(v ?? '').replace(/"/g, '""')}"`).join(';')).join('\r\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([csv], { type: 'text/csv;charset=utf-8' })); a.download = `solicitudes-verano-2027${G.programa ? '-' + G.programa.toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g, '-') : ''}.csv`; a.click();
+  }
+
+  // ---------------- Configuración ----------------
+  function vConfig() {
+    if (!esCoord()) { ir('resumen'); return; }
+    barraSup('Configuración de la campaña', 'Solo Coordinación académica puede cambiar estos valores', false);
+    const c = CA.leer(), cargaPlan = CA.cargaPlan(UC_PROTO.malla), k = c.costos, ej = CA.cronograma(11, k);
+    $('main').innerHTML = `<div class="grid dos">
+      <section class="tarjeta"><h2>Fase y fechas</h2><div class="grid" style="gap:12px">
+        <label class="campo">Fase actual<select id="c-fase">${Object.entries(CA.FASES).map(([k2, f]) => `<option value="${k2}" ${k2 === c.fase ? 'selected' : ''}>${f.t}</option>`).join('')}</select></label>
+        ${[['inicio', 'Inicio de solicitudes'], ['cierre', 'Cierre de solicitudes'], ['horarios', 'Publicación de horarios'], ['matInicio', 'Inicio de matrícula'], ['matFin', 'Fin de matrícula']].map(([k2, t]) => `<label class="campo">${t}<input type="date" id="c-${k2}" value="${c[k2] || ''}"></label>`).join('')}</div></section>
+      <section class="tarjeta"><h2>Costos de referencia <small>Valores de ejemplo</small></h2><div class="grid" style="gap:12px">
+        <div class="acciones" style="align-items:flex-end"><label class="campo">Costo por crédito (S/)<input type="number" id="c-credito" min="0" step="0.01" value="${k.credito}" style="width:120px"></label>
+        <label class="campo">Matrícula (S/)<input type="number" id="c-matricula" min="0" step="0.01" value="${k.matricula}" style="width:120px"></label>
+        <label class="campo">Número de cuotas<select id="c-cuotas">${[1, 2, 3, 4].map((n) => `<option ${n === k.cuotas ? 'selected' : ''}>${n}</option>`).join('')}</select></label></div>
+        <div class="acciones" style="align-items:flex-end"><label class="campo">Vence la matrícula<input type="date" id="c-vm" value="${k.venceMatricula || ''}"></label>
+        ${[0, 1, 2, 3].map((i) => `<label class="campo ${i >= k.cuotas ? 'oculto' : ''}">Vence la cuota ${i + 1}<input type="date" id="c-vc${i}" value="${(k.venceCuotas || [])[i] || ''}"></label>`).join('')}</div>
+        <p class="meta" style="margin:0">Ejemplo con 11 créditos: ${ej.filas.map((f) => `${f.concepto} ${soles(f.monto)}`).join(' · ')} · <b>Total ${soles(ej.total)}</b>. El estudiante ve este cronograma como estimación; el monto real lo confirma Tesorería según su escala.</p></div></section>
+      <section class="tarjeta"><h2>Reglas</h2><div class="grid" style="gap:12px">
+        <label class="campo">Mínimo de estudiantes por defecto<input type="number" id="c-minimo" min="1" value="${c.minimoDefecto}"></label>
+        <label class="campo">Créditos por ciclo para los escenarios de egreso<input type="number" id="c-carga" min="12" max="25" value="${c.carga || ''}" placeholder="${cargaPlan}"><span class="meta" style="font-weight:400">Vacío = máximo de créditos por ciclo del plan (${cargaPlan}).</span></label>
+        <p class="meta" style="margin:0">Máximo por verano: 11 créditos.</p></div></section>
+      <section class="tarjeta"><h2>Usuarios del panel</h2>
+        ${USUARIOS.map((u) => `<div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 10px;padding:10px 0;border-top:1px solid #E5E2EB"><div style="min-width:0;overflow-wrap:anywhere"><b>${esc(u.nombre)}</b><div class="meta">${esc(u.correo)}</div></div><span class="pill ${u.rol === 'coordinacion' ? 'p-m' : 'p-ok'}">${esc(u.rolT)}</span></div>`).join('')}
+        <p class="meta">En el piloto, los roles se asignan por cuenta institucional.</p>
+        <div class="acciones"><button class="btn sec chico" id="sincronizar">Simular datos de matrícula de TI</button><button class="btn-texto" id="reiniciar" style="color:#7A2419">Restablecer datos de demostración</button></div></section>
+      </div>
+      <div style="margin-top:16px"><button class="btn" id="guardar-config">Guardar configuración</button></div>`;
+  }
+  function guardarConfig() {
+    const c = CA.leer();
+    c.fase = $('c-fase').value; ['inicio', 'cierre', 'horarios', 'matInicio', 'matFin'].forEach((k) => { c[k] = $('c-' + k).value || c[k]; });
+    c.minimoDefecto = Math.max(1, +$('c-minimo').value || 15); c.carga = +$('c-carga').value || null;
+    const n = +$('c-cuotas').value || 3;
+    c.costos = { credito: Math.max(0, +$('c-credito').value || 0), matricula: Math.max(0, +$('c-matricula').value || 0), cuotas: n, venceMatricula: $('c-vm').value || c.costos.venceMatricula, venceCuotas: [0, 1, 2, 3].slice(0, n).map((i) => $('c-vc' + i).value || (c.costos.venceCuotas || [])[i] || null) };
+    CA.guardar(c); marco(); ir('config'); toast('Configuración guardada. El portal del estudiante ya usa estos valores.');
+  }
+  function sincronizar() {
+    const c = CA.leer(); let n = 0;
+    CA.vigentes().forEach((s) => { if (s.seguimiento.estado === 'orientado' && s.cursos.some((x) => CA.estadoCurso(c, x.codigo) === 'abierto')) { CA.actualizarSeguimiento(s.id, { estado: 'matriculado' }, 'Intranet (TI)', 'Matrícula confirmada por la intranet'); n++; } });
+    toast(n ? `${n} ${n === 1 ? 'estudiante marcado' : 'estudiantes marcados'} como matriculados.` : 'No hay estudiantes orientados con cursos abiertos todavía.');
+  }
+  const refrescar = () => { ({ resumen: vResumen, demanda: vDemanda, estudiantes: vEstudiantes, config: vConfig })[vista](); if (FICHA) abrirFicha(FICHA); };
+
+  // ---------------- Eventos ----------------
+  document.addEventListener('click', (e) => {
+    const b = e.target.closest('button, a, [data-cerrar-ficha]'); if (!b) return;
+    const d = b.dataset;
+    if (b.id === 'btn-google') selector();
+    else if (d.usuario) entrar(d.usuario);
+    else if (b.hasAttribute('data-cerrar')) $('modal').innerHTML = '';
+    else if (b.hasAttribute('data-cerrar-ficha')) cerrarFicha();
+    else if (b.id === 'btn-salir') { sessionStorage.removeItem('uc_proto_panel'); U = null; cerrarFicha(); ingreso(); }
+    else if (d.vista) ir(d.vista);
+    else if (b.id === 'g-limpiar') { G = { facultad: '', programa: '' }; guardarG(); FE.pagina = 1; refrescar(); }
+    else if (d.filtrarFac) { G = { facultad: d.filtrarFac, programa: '' }; guardarG(); vResumen(); }
+    else if (d.filtrarProg) { const p = X.programas.find((x) => x.nombre === d.filtrarProg); G = { facultad: p ? p.facultad : '', programa: d.filtrarProg }; guardarG(); vResumen(); }
+    else if (d.fd) { FD[d.fd] = d.val; vDemanda(); }
+    else if (d.verEstudiantes) { FE = Object.assign(FE, { rapido: 'todos', curso: d.verEstudiantes, estado: '', pref: '', ciclo: '', asignado: '', q: '', pagina: 1 }); ir('estudiantes'); }
+    else if (d.rapido) { FE.rapido = d.rapido; FE.pagina = 1; vEstudiantes(); }
+    else if (d.pag) { FE.pagina = +d.pag; vEstudiantes(); $('main').scrollIntoView(); }
+    else if (d.contactar) contactar(d.contactar, d.canal);
+    else if (d.ficha) abrirFicha(d.ficha);
+    else if (d.registrar) { if (b.hasAttribute('data-solo-registro')) e.preventDefault(); registrar(d.registrar, d.canal); }
+    else if (b.hasAttribute('data-copiar')) { try { navigator.clipboard.writeText($('modal').dataset.texto); } catch (x) {} toast('Mensaje copiado.'); }
+    else if (b.id === 'exportar') exportar();
+    else if (d.masivo) {
+      const ids = [...SEL], quien = `${U.nombre} (${U.rolT})`;
+      if (d.masivo === 'limpiar') SEL = new Set();
+      else if (d.masivo === 'exportar') exportar(ids);
+      else if (d.masivo === 'asignarme') { CA.actualizarVarios(ids, { asignado: U.nombre }, quien, `Asignado a ${U.nombre}`); toast(`${ids.length} asignados a ti.`); SEL = new Set(); }
+      else if (d.masivo === 'asignar') { const a = $('m-agente').value; if (!a) { toast('Elige a quién asignar.'); return; } CA.actualizarVarios(ids, { asignado: a }, quien, `Asignado a ${a}`); toast(`${ids.length} asignados a ${a}.`); SEL = new Set(); }
+      else if (d.masivo === 'contactado') { CA.actualizarVarios(ids, { estado: 'contactado' }, quien, 'Seguimiento: Contactado (acción masiva)'); toast(`${ids.length} marcados como contactados.`); SEL = new Set(); }
+      vEstudiantes();
+    }
+    else if (b.id === 'guardar-config') guardarConfig();
+    else if (b.id === 'sincronizar') sincronizar();
+    else if (b.id === 'reiniciar') { if (confirm('¿Restablecer todas las solicitudes y la configuración de la demostración?')) { CA.reiniciar(); CA.solicitudes(); marco(); ir('resumen'); toast('Datos de demostración restablecidos.'); } }
+    else if (d.agregarSec) {
+      const k = d.agregarSec, c = CA.leer(), secs = CA.seccionesCurso(c, k).slice();
+      const ini = document.querySelector(`[data-nueva-ini="${k}"]`).value, fin = document.querySelector(`[data-nueva-fin="${k}"]`).value;
+      if (!ini || !fin || fin <= ini) { toast('Revisa la hora de inicio y de fin.'); return; }
+      secs.push({ seccion: 'V-' + String(secs.length + 1).padStart(2, '0'), dia: +document.querySelector(`[data-nueva-dia="${k}"]`).value, hora_inicio: ini, hora_fin: fin, vacantes: 40 });
+      CA.guardarSecciones(k, secs); vDemanda(); toast('Sección agregada.');
+    }
+    else if (d.quitarSec) { const k = d.quitarSec, c = CA.leer(), secs = CA.seccionesCurso(c, k).slice(); secs.splice(+d.i, 1); secs.forEach((s, i) => { s.seccion = 'V-' + String(i + 1).padStart(2, '0'); }); CA.guardarSecciones(k, secs); vDemanda(); }
+  });
+  document.addEventListener('change', (e) => {
+    const t = e.target, d = t.dataset, quien = U ? `${U.nombre} (${U.rolT})` : '';
+    if (t.id === 'g-facultad') { G = { facultad: t.value, programa: '' }; guardarG(); FE.pagina = 1; FE.curso = ''; refrescar(); }
+    else if (t.id === 'g-programa') { const p = X.programas.find((x) => x.nombre === t.value); G = { facultad: p ? p.facultad : G.facultad, programa: t.value }; guardarG(); FE.pagina = 1; FE.curso = ''; refrescar(); }
+    else if (t.id === 'd-orden') { FD.orden = t.value; vDemanda(); }
+    else if (['e-curso', 'e-estado', 'e-pref', 'e-ciclo', 'e-asignado', 'e-orden'].includes(t.id)) { FE[t.id.slice(2)] = t.value; FE.pagina = 1; vEstudiantes(); }
+    else if (d.sel) { if (t.checked) SEL.add(d.sel); else SEL.delete(d.sel); vEstudiantes(); }
+    else if (t.id === 'sel-pagina') { const { sol } = listaEstudiantes(), pag = sol.slice((FE.pagina - 1) * POR_PAG, FE.pagina * POR_PAG); pag.forEach((s) => (t.checked ? SEL.add(s.id) : SEL.delete(s.id))); vEstudiantes(); }
+    else if (d.minimo) { const c = CA.leer(); c.minimos[d.minimo] = Math.max(1, +t.value || 1); CA.guardar(c); vDemanda(); }
+    else if (d.publicar) { const n = CA.publicarHorario(d.publicar, t.checked); vDemanda(); if (n < 0) toast('Primero abre el curso y carga al menos una sección.'); else toast(t.checked ? `Horario publicado. Se registró el correo automático a ${n} ${n === 1 ? 'estudiante' : 'estudiantes'}.` : 'El horario dejó de mostrarse a los estudiantes.'); }
+    else if (d.estado) { const n = CA.decidirCurso(d.estado, t.value, null, U.nombre); vDemanda(); if (t.value !== 'por_decidir') toast(`Curso marcado como ${CA.ESTADOS_CURSO[t.value].toLowerCase()}. Se registró el correo automático a ${n} ${n === 1 ? 'estudiante' : 'estudiantes'}.`); }
+    else if (d.seguimiento) { CA.actualizarSeguimiento(d.seguimiento, { estado: t.value }, quien, `Seguimiento: ${CA.SEGUIMIENTO[t.value]}`); toast('Seguimiento actualizado.'); refrescar(); }
+    else if (d.asignar) { CA.actualizarSeguimiento(d.asignar, { asignado: t.value || null }, quien, t.value ? `Asignado a ${t.value}` : 'Sin asignar'); toast('Asignación actualizada.'); refrescar(); }
+    else if (d.notas !== undefined) { CA.actualizarSeguimiento(d.notas, { notas: t.value }, quien, 'Notas actualizadas'); toast('Notas guardadas.'); }
+    else if (t.id === 'c-cuotas') { const n = +t.value; [0, 1, 2, 3].forEach((i) => $('c-vc' + i).closest('label').classList.toggle('oculto', i >= n)); }
+  });
+  document.addEventListener('input', (e) => {
+    const t = e.target; if (t.id !== 'e-q' && t.id !== 'd-q') return;
+    clearTimeout(window._q); window._q = setTimeout(() => { if (t.id === 'e-q') { FE.q = t.value; FE.pagina = 1; vEstudiantes(); } else { FD.q = t.value; vDemanda(); } const q = $(t.id); q.focus(); q.setSelectionRange(q.value.length, q.value.length); }, 300);
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if ($('modal').innerHTML) $('modal').innerHTML = ''; else if (FICHA) cerrarFicha(); } });
+
+  CA.solicitudes();
+  const previo = sessionStorage.getItem('uc_proto_panel');
+  if (previo && USUARIOS.some((u) => u.id === previo)) entrar(previo); else ingreso();
+})();
+</script>
+</body>
+</html>
